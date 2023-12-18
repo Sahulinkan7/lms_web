@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+
+
+{% block content %}
+
+<div class="row m-3">
+    <div class="card">
+        {% include "core/components/messages.html" %}
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <label for="id_username">username</label>
+                        <input type="text" name="username" id="id_username" class="form-control" value="{{ user.username}}" readonly >
+                    </div>
+                    <div class="col">
+                        <label for="id_email">email</label>
+                        <input type="text" name="email" id="id_email" class="form-control" value="{{ user.email}}" readonly >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="id_firstname">First name</label>
+                        <input type="text" name="first_name" id="id_firstname" class="form-control" value="{{ user.first_name}}" >
+                    </div>
+                    <div class="col">
+                        <label for="id_lastname">Last name</label>
+                        <input type="text" name="last_name" id="id_lastname" class="form-control" value="{{ user.last_name}}" >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="id_password1">New password</label>
+                        <input type="password" name="password1" id="id_password1" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="id_password2">Confirm new password</label>
+                        <input type="password" name="password2" id="id_password2" class="form-control" >
+                    </div>
+                </div>
+                <input type="submit" value="update profile" class="mt-2 btn btn-primary form-control" >
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+
+{% block content %}
+
+    <div class="row m-6">
+        <div class="card bg-danger m-4">
+            <div class="card-body">
+                <h3 class="text-center text-black">
+                    Invalid URL for password reset
+                </h3>
+                <h4 class="text-center">click to <a href="{% url 'forgot_password' %}" class="text-blue">send reset mail</a> again.</h4>
+                
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}

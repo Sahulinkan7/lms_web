@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponseRedirect
 from .models import Course,Level
+from django.urls import reverse
 
 def courses_view(request):
     courses=Course.objects.all()
@@ -19,4 +20,10 @@ def search_course(request):
     return render(request,"storeapp/search.html",{'searchedcourses':searchedcourses})
 
 def course_details(request,slug):
-    return render(request,"storeapp/course_details.html")
+    course=Course.objects.filter(slug=slug)
+    if not course.exists():
+        return HttpResponseRedirect(reverse('error_view'))
+    context={
+        'course':course
+    }
+    return render(request,"storeapp/course_details.html",context)

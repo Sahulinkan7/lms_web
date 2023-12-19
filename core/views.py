@@ -10,6 +10,8 @@ def home_view(request):
     context={'categories':categories,'courses':courses}
     return render(request,"core/home.html",context)
 
+def error_view(request):
+    return render(request,"core/error_404.html")
 
 def about_us(request):
     return render(request,"core/about_us.html")

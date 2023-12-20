@@ -55,7 +55,13 @@ class Course(models.Model):
     def get_absolute_url(self):
         return reverse("course_details", kwargs={"slug": self.slug})
     
+class what_will_learn(models.Model):
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    point=models.CharField(max_length=100)
     
+class course_requirement(models.Model):
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    point=models.CharField(max_length=200)
     
 def create_slug(instance,new_slug=None):
     slug=slugify(instance.title)

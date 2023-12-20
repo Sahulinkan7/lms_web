@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item text-gray-800 active" aria-current="page">
-                    Courses Single
+                   {{course.title}}
                 </li>
             </ol>
         </nav>
@@ -31,9 +31,9 @@
         <div class="row mb-8">
             <div class="col-lg-8 mb-6 mb-lg-0 position-relative">
                 <h1 class="me-7 me-xl-14">
-                    Learn Figma: User Interface Design Essentials - UI/UX Design
+                    {{course.title}}
                 </h1>
-                <p class="me-xl-13 mb-5">Master Figma app to get a job in UI Design, User Interface, User Experience design, Web Design & UX design.</p>
+                <p class="me-xl-13 mb-5">{{course.description|truncatewords:10}}</p>
 
                 <a href="#" class="badge badge-lg badge-rounded-circle badge-secondary font-size-base badge-float badge-float-inside top-0 text-white">
                     <i class="far fa-heart"></i>
@@ -44,18 +44,18 @@
                 <div class="d-md-flex align-items-center mb-5">
                     <div class="border rounded-circle d-inline-block mb-4 mb-md-0 me-md-6 me-lg-4 me-xl-6">
                         <div class="p-2">
-                            <img src="assets/img/avatars/avatar-1.jpg" alt="..." class="rounded-circle" width="68" height="68">
+                            <img src="{{course.author.author_profile.url}}" alt="..." class="rounded-circle" width="68" height="68">
                         </div>
                     </div>
 
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Created by</h6>
-                        <a href="#" class="font-size-sm text-gray-800">Alison Dawn</a>
+                        <a href="#" class="font-size-sm text-gray-800">{{course.author.name}}</a>
                     </div>
 
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Categories</h6>
-                        <a href="#" class="font-size-sm text-gray-800">Design</a>
+                        <a href="#" class="font-size-sm text-gray-800">{{course.category}}</a>
                     </div>
 
                     <div class="mb-4 mb-md-0 me-md-6 me-lg-4 me-xl-6">
@@ -91,9 +91,9 @@
                     </ul>
 
                     <h3 class="">Course Description</h3>
-                    <p class="mb-6 line-height-md">Do you want to become a UI/UX designer but you don't know where to start? This course will allow you to develop your user interface design skills and you can add UI designer to your CV and start getting clients for your skills.</p>
-                    <p class="mb-6 line-height-md">Hi everyone. I'm Arash and I'm a UI/UX designer. In this course, I will help you learn and master Figma app comprehensively from scratch. Figma is an innovative and brilliant tool for User Interface design. It's used by everyone from entrepreneurs and start-ups to Apple, Airbnb, Facebook, etc.</p>
-                    <p class="collapse mb-6 line-height-md" id="readcollapseExample">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente  I will help you learn and master Figma app comprehensively from scratch. Figma is an innovative and brilliant tool for User Interface design. It's used by everyone from entrepreneurs ea proident.</p>
+                    <p class="mb-6 line-height-md">{{course.description|slice:"0:400"}}</p>
+                    <p class="mb-6 line-height-md">{{course.description|slice:"400:600"}}</p>
+                    <p class="collapse mb-6 line-height-md" id="readcollapseExample">{{course.description|slice:"600:"}}</p>
                     <a class="text-teal read-more h6 d-inline-block mb-8" data-bs-toggle="collapse" href="#readcollapseExample" role="button" aria-expanded="false" aria-controls="readcollapseExample">
                         <span class="d-inline-flex align-items-center more">
                             Read More
@@ -111,32 +111,30 @@
 
                     <h3 class="mb-5">What you'll learn</h3>
                     <div class="row row-cols-lg-2 mb-8">
-                        <div class="col-md">
-                            <ul class="list-style-v1 list-unstyled">
-                                <li>Become a UI/UX designer.</li>
-                                <li>You will be able to start earning money skills.</li>
-                                <li>Build a UI project from beginning to end.</li>
-                                <li>Work with colors & fonts.</li>
-                                <li>You will create your own UI Kit.</li>
-                            </ul>
-                        </div>
+                            
+                            <div class="col-md">
+                                <ul class="list-style-v1 list-unstyled">
+                                    {% for point in course.what_will_learn_set.all|slice:"0:5" %}
+                                        <li>{{point.point}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
 
-                        <div class="col-md">
-                            <ul class="list-style-v1 list-unstyled ms-xl-6">
-                                <li>Build & test a complete mobile app.</li>
-                                <li>Learn to design mobile apps & websites.</li>
-                                <li>Design 3 different logos.</li>
-                                <li>Create low-fidelity wireframe.</li>
-                                <li>Downloadable exercise files.</li>
-                            </ul>
-                        </div>
+                            <div class="col-md">
+                                <ul class="list-style-v1 list-unstyled ms-xl-6">
+                                    {% for point in course.what_will_learn_set.all|slice:"5:" %}
+                                        <li>{{point.point}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        
                     </div>
 
                     <h3 class="mb-5">Requirements</h3>
                     <ul class="list-style-v2 list-unstyled">
-                        <li>We do not require any previous experience or pre-defined skills to take this course. A great orientation would be enough to master UI/UX design.</li>
-                        <li>A computer with a good internet connection.</li>
-                        <li>Adobe Photoshop (OPTIONAL)</li>
+                        {% for requirement in course.course_requirement_set.all %}
+                            <li>{{requirement.point}}</li>
+                        {% endfor %}
                     </ul>
                 </div>
 
@@ -932,11 +930,11 @@
                     <div class="d-flex align-items-center mb-6">
                         <div class="d-inline-block rounded-circle border me-6 p-2">
                             <div class="avatar avatar-size-120">
-                                <img src="assets/img/avatars/avatar-2.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="{{course.author.author_profile.url}}" alt="..." class="avatar-img rounded-circle">
                             </div>
                         </div>
                         <div class="media-body">
-                            <h4 class="mb-0">Lauren Handerson</h4>
+                            <h4 class="mb-0">{{course.author.name}}</h4>
                             <span>iOS Developer & UI Designer</span>
                         </div>
                     </div>
@@ -994,7 +992,7 @@
                         </div>
                     </div>
 
-                    <p class="mb-6 line-height-md">I am a UI/UX designer and an iOS developer with having almost six years of experience in application development and also ten years of graphic design and User Interface design.</p>
+                    <p class="mb-6 line-height-md">{{course.author.about_author}}</p>
                     <p class="mb-6 line-height-md">My passion is helping people to learn new skills in a short-term course and achieve their goals. I've been designing for more than ten years and developing iOS apps for four years. It's my honor if I could help you learn to program in a simple word. I currently am teaching iOS 13, Swift 5, ARKit 3, Sketch 5, Illustrator, Photoshop, Cinema 4D, HTML, CSS, JavaScript, etc.</p>
                 </div>
 
@@ -1199,7 +1197,7 @@
                             </svg>
 
                         </div>
-                        <img class="rounded shadow-light-lg" src="assets/img/products/product-2.jpg" alt="...">
+                        <img class="rounded shadow-light-lg" src="{{course.featured_image.url}}" alt="...">
                     </a>
 
                     <div class="pt-5 pb-4 px-5 px-lg-3 px-xl-5">

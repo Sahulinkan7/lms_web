@@ -23,6 +23,8 @@ def course_details(request,slug):
     course=Course.objects.filter(slug=slug)
     if not course.exists():
         return HttpResponseRedirect(reverse('error_view'))
+    else:
+        course=course.first()
     context={
         'course':course
     }
